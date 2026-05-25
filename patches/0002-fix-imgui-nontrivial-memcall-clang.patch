@@ -1,12 +1,21 @@
 diff --git a/dart/external/imgui/imgui.h b/dart/external/imgui/imgui.h
 --- a/dart/external/imgui/imgui.h
 +++ b/dart/external/imgui/imgui.h
-@@ -118,6 +118,9 @@ typedef void* ImTextureID;          // User data for rendering backend to identi
- #pragma clang diagnostic push
- #pragma clang diagnostic ignored "-Wold-style-cast"
+@@ -120,4 +120,7 @@ typedef void* ImTextureID;          // User data for rendering backend to identi
  #if __has_warning("-Wzero-as-null-pointer-constant")
  #pragma clang diagnostic ignored "-Wzero-as-null-pointer-constant"
  #endif
++#if __has_warning("-Wnontrivial-memcall")
++#pragma clang diagnostic ignored "-Wnontrivial-memcall"  // memset(this, 0, ...) on non-trivially copyable types
++#endif
+ #elif defined(__GNUC__)
+diff --git a/dart/external/imgui/imgui_internal.h b/dart/external/imgui/imgui_internal.h
+--- a/dart/external/imgui/imgui_internal.h
++++ b/dart/external/imgui/imgui_internal.h
+@@ -82,4 +82,7 @@ typedef void* ImTextureID;
+ #pragma clang diagnostic ignored "-Wzero-as-null-pointer-constant"
+ #pragma clang diagnostic ignored "-Wdouble-promotion"
+ #pragma clang diagnostic ignored "-Wimplicit-int-float-conversion"  // warning: implicit conversion from 'xxx' to 'float' may lose precision
 +#if __has_warning("-Wnontrivial-memcall")
 +#pragma clang diagnostic ignored "-Wnontrivial-memcall"  // memset(this, 0, ...) on non-trivially copyable types
 +#endif
